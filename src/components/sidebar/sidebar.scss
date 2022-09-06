@@ -1,0 +1,168 @@
+@use '../../scss/abstracts/' as *;
+@use 'sass:math';
+
+.sub_container {
+    padding-left: 100px;
+    @include tablet {
+        padding-left: 50px;
+    }
+}
+
+.selected_sub_tab {
+    color: $mainColor;
+    @include tablet {
+        color: $light !important;
+    }
+}
+
+.sidebar {
+    @include flex(stretch, flex-start);
+    flex-direction: column;
+    color: $txtColor;
+    width: $sideBarWidth;
+    background-color: $mainBg;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;   
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        border-radius: 5px;
+    }
+
+    @include tablet {
+        width: 100vw;
+        background-color: $mainColor;
+        color: $white;
+        z-index: 1;
+    }
+
+    &__logo {
+        @include flex();
+        background-color: #f5f5f5;
+        height: 83px;
+        box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 10%);
+        border-right: 1px solid #e5e5e5;
+        position: fixed;
+        width: 335px;
+        z-index: 100;
+        @include tablet {
+            justify-content: space-between;
+            height: math.div($sideBarLogoHeight, 1.8);
+            padding: 0 $mobileSpacing;
+            margin-bottom: $mobileSpacing;
+            background-color: inherit;
+            border-right: none;
+            box-shadow: none;
+            width: 100vw;
+        }
+
+        img {
+            max-width: 250px;
+        }
+
+        .sidebar-close {
+            cursor: pointer;
+            display: none;
+
+            i {
+                font-size: 2rem;
+            }
+
+            @include tablet {
+                display: block;
+            }
+        }
+    }
+
+    &__menu {
+        @include flex(stretch, flex-start);
+        flex-direction: column;
+        flex-grow: 1;
+        margin-top: 130px;
+        &__item {
+            @include flex(center, flex-start);
+            position: relative;
+            margin-bottom: 1.8rem;
+            padding-left: 15%;
+            width: max-content;
+            
+            // transition: color 0.3s ease-in-out;
+
+            @include tablet {
+                padding-left: $mobileSpacing;
+                color: $dark;
+            }
+
+            @include mobile {
+                font-size: 12px !important;
+                margin-bottom: 1rem !important;
+                padding-left: 5%;
+            }
+
+            &:hover {
+                color: $mainColor;
+                font-weight: 700;
+                @include tablet {
+                    color: $light;
+                }
+            }
+
+            &.active {
+                font-weight: 700;
+                color: $mainColor;
+
+                @include tablet {
+                    color: $light;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    height: 100%;
+                    width: 5px;
+                    left: 0;
+                    top: 0;
+                    background-color: $mainColor;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+
+                    @include tablet {
+                        background-color: $light;
+                    }
+                }
+            }
+
+            &__icon {
+                --size: 40px;
+                width: var(--size);
+                height: var(--size);
+                margin-right: 1rem;
+                @include flex(center, center);
+
+                @include tablet {
+                    margin-right: 1rem;
+                }
+
+                @include mobile {
+                    margin-right: 0.3rem !important;
+                }
+
+                i {
+                    font-size: 1.9rem;
+                }
+            }
+
+            &:last-child {
+                margin-top: auto;
+                cursor: pointer;
+            }
+        }
+    }
+}
